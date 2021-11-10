@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>cw</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css">
+
+    </head>
+
+    <body>
+    
+
+    <div class="container">
+  		<div class="row">
+    		<div class="col">
+      			<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#coin-modal" data-source="New Coin">Add Coin</button>
+    		</div>
+    		<div class="col">
+      			<div class="row">
+      				<div class="col">
+      					<div class="form-outline">
+    						<input type="search" id="form1" class="form-control" placeholder="Search Coins" />
+    			
+  	  					</div>
+      				</div>
+      				<div class="col">
+  	  					<button id="srch" type="button" role="button" class="btn btn-info">
+    						<i class="fas fa-search"></i>
+  	  					</button>
+      				</div>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+
+    <div class="container">
+        <div class="modal fade" id="coin-modal" tabindex="-1" aria-labelledby="Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="coin-form-name"></span>
+                    <input type="text" class="form-control" id="name-input" placeholder="Coin Name" aria-label="coin-name" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="coin-form-display"></span>
+                    <input type="text" class="form-control" id="display-input" placeholder="Coin Display" aria-label="coin-display" aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="coin-form-sentiment"></span>
+                    <input type="text" class="form-control" id="sent-input" placeholder="Coin Sentiment" aria-label="coin-display" aria-describedby="basic-addon1" class="yup">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="submit-coin" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+    <!--Todo Table-->
+    <div class="container table-responsive">          
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="coin_id">Coin ID</th>
+            <th class="CoinName">Coin Name</th>
+            <th class="CoinDisplay">Display</th>
+            <th class="OverallSentiment">Sentiment</th>
+            <th class="update">Update</th>
+            <th class="delete">Delete</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{item.coinID}}</td>
+                <td>{{item.CoinName}}</td>
+                <td>{{item.CoinDisplay}}</td>
+                <td>{{item.OverallSentiment}}</td>
+                
+                <td><button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#coin-modal" data-source="{{item.coinID}}" data-name="{{item.CoinName}}" data-display="{{item.CoinDisplay}}" data-sentiment="{{item.OverallSentiment}}"><i class="fa fa-pen fa-1" aria-hidden="true"></i></button></td>
+
+                <td><button class="btn btn-outline-secondary btn-sm delete" data-source="{{item.coinID}}" type="button"><i class="fa fa-trash fa-1" aria-hidden="true"></i></button></td>
+            </tr>
+        {% endfor %}
+        
+        </tbody>
+    </table>
+    </div>
+
+    <div class="container">
+  		<div class="row">
+    		<div class="col">
+      			<a href="{{ url_for('yearhighest') }}" type="button" class="btn btn-info"/a>Year's Highest</a>
+    		</div>
+    		<div class="col">
+      			<a href="{{ url_for('avgsentvalue') }}" type="button" class="btn btn-info"/a>Average Sentiment and Value</a>
+    		</div>
+  		</div>
+	</div>
+
+  </body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='script/modal.js') }}"></script>
+
+</html>
