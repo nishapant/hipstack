@@ -5,9 +5,9 @@ from app import database as db
 @app.route("/delete/<int:coinID>", methods=['POST'])
 def delete(coinID):
     """ recieved post requests for entry delete """
-
+    # print(coinID)
     try:
-        db.removebycoinid(coinID)
+        db.removecoinbyid(coinID)
         result = {'success': True, 'response': 'Removed coin'}
     except:
         result = {'success': False, 'response': 'Something went wrong'}
@@ -45,8 +45,8 @@ def create():
 @app.route("/")
 def homepage():
 	# switch for database testing
-	items = db.all_coins()
-	# items = db.fetch_coins()
+	# items = db.all_coins()
+	items = db.fetch_coins()
 	return render_template("index.html", items=items)
 
 @app.route("/search/<string:input>")

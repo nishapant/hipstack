@@ -4,9 +4,9 @@ from app import db
 def query_name():
 	return random.choice(["BTC", "ETH", "MPL", "Z2O"])
 
-def all_coins() -> dict:
+def all_Coin() -> dict:
 # just to make sure interface displays data correctly
-	Coins = [
+	Coin = [
 		{
 			"coinID": 1,
 			"CoinName": "Bitcoin",
@@ -31,12 +31,12 @@ def all_coins() -> dict:
 
 	]
 
-	return Coins
+	return Coin
 
 def fetch_coins() -> dict:
 
     conn = db.connect()
-    query_results = conn.execute("Select * from Coins;").fetchall()
+    query_results = conn.execute("Select * from Coin;").fetchall()
     conn.close()
     coin_list = []
     for result in query_results:
@@ -54,14 +54,14 @@ def fetch_coins() -> dict:
 def update_coin_entry(coinID: int, CoinName: str, CoinDisplay: str, OverallSentiment: float) -> None:
 # not tested yet
     conn = db.connect()
-    query = 'Update Coins set CoinName = "{}", CoinDisplay = "{}", OverallSentiment = {} where id = {};'.format(CoinName, CoinDisplay, OverallSentiment, coinID)
+    query = 'Update Coin set CoinName = "{}", CoinDisplay = "{}", OverallSentiment = {} where CoinID = {};'.format(CoinName, CoinDisplay, OverallSentiment, coinID)
     conn.execute(query)
     conn.close()
 
 def insert_new_coin(CoinName: str, CoinDisplay: str, OverallSentiment: float) ->  int:
 
     conn = db.connect()
-    query = 'Insert Into Coins (CoinName, CoinDisplay, OverallSentiment) VALUES ("{}", "{}", {});'.format(
+    query = 'Insert Into Coin (CoinName, CoinDisplay, OverallSentiment) VALUES ("{}", "{}", {});'.format(
         CoinName, CoinDisplay, OverallSentiment)
     conn.execute(query)
     query_results = conn.execute("Select LAST_INSERT_ID();")
@@ -72,16 +72,15 @@ def insert_new_coin(CoinName: str, CoinDisplay: str, OverallSentiment: float) ->
     return coinID
 
 
-
 def removecoinbyid(coinID: int) -> None:
     conn = db.connect()
-    query = 'Delete From Coins where id={};'.format(coinID)
+    query = 'Delete From Coin WHERE CoinID={};'.format(coinID)
     conn.execute(query)
     conn.close()
 
 def keywordsearch(text: str) -> None:
     conn = db.connect()
-    query = 'Select * from Coins where CoinName LIKE "%{}%" OR CoinDisplay LIKE "%{}%"'.format(text, text)
+    query = 'Select * from Coin where CoinName LIKE "%%{}%%" OR CoinDisplay LIKE "%%{}%%"'.format(text, text)
     query_results = conn.execute(query).fetchall()
     conn.close()
     coin_list = []
@@ -132,8 +131,3 @@ def avgsentvalueall() -> None:
         coin_list.append(item)
 
     return coin_list
-
-
-
-
-
