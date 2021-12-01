@@ -131,3 +131,23 @@ def avgsentvalueall() -> None:
         coin_list.append(item)
 
     return coin_list
+
+def generalinfo() -> None:
+    # lead this to another endpt with just a table, can do that for other queries too
+    conn = db.connect()
+    query = 'CALL GeneralInfo();'
+    query_results = conn.execute(query).fetchall()
+    conn.close()
+    coin_list = []
+    for result in query_results:
+        item = {
+            "CoinName": result[0],
+            "TradingVolume": result[1],
+            "TweetVolume": result[2],
+            "YearsHighestValue": result[3],
+            "AvgOverallSentiment": result[4],
+            "AvgTradingVolume": result[5]
+        }
+        coin_list.append(item)
+
+    return coin_list

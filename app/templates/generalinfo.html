@@ -24,20 +24,25 @@
     <table class="table">
         <thead>
         <tr>
-            <th class="coin_id">Coin ID</th>
             <th class="CoinName">Coin Name</th>
-            <th class="TradingDate">Trading Date</th>
-            <th class="YearsHighest">Year's Highest Value</th>
+            <th class="TradingVolume">Trading Volume</th>
+            <th class="TweetVolume">Tweet Volume</th>
+            <th class="YearsHighestValue">Year's Highest Value</th>
+            <th class="AvgOverallSentiment">Average Overall Sentiment</th>
+            <th class="AvgTradingVolume">Average Trading Volume</th>
+
         </tr>
         </thead>
 
         <tbody>
         {% for item in items %}
             <tr>
-                <td>{{item.coinID}}</td>
                 <td>{{item.CoinName}}</td>
-                <td>{{item.TradingDate}}</td>
-                <td>{{item.YearsHighest}}</td>
+                <td>{{item.TradingVolume}}</td>
+                <td>{{item.TweetVolume}}</td>
+                <td>{{item.YearsHighestValue}}</td>
+                <td>{{item.AvgOverallSentiment}}</td>
+                <td>{{item.AvgTradingVolume}}</td>
                 
             </tr>
         {% endfor %}

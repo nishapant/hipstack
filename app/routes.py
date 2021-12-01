@@ -73,5 +73,12 @@ def avgsentvalue():
 	items = db.avgsentvalueall()
 	return render_template("avgsentvalue.html", items=items)
 
+@app.route("/generalinfo")
+def generalinfo():
+    # switch for database testing
+    # items = db.all_coins()
+    items = db.generalinfo()
+    return render_template("generalinfo.html", items=items)
+
 
 
